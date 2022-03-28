@@ -52,7 +52,7 @@ func update (screen *ebiten.Image) error {
 	// Draw our player
 	w, h := playerOne.Image.Size()
 	playerOp := &ebiten.DrawImageOptions{}
-	playerOp.GeoM.Translate(-float64(w)/2, -float64(h)-2)
+	playerOp.GeoM.Translate(-float64(w)/2, -float64(h)/2)
 	playerOp.GeoM.Scale(0.1, 0.1)
 	playerOp.GeoM.Rotate(playerOne.Rot*math.Pi/180)
 	playerOp.GeoM.Translate(playerOne.Xpos, playerOne.Ypos)
