@@ -23,7 +23,7 @@ func (p *Player) MovePlayer(){
       p.Acc += p.Speed
     }
   }
-  if p.Acc >= p.MaxSpeed{
+  if p.Acc >= -p.MaxSpeed{
   	if ebiten.IsKeyPressed(ebiten.KeyDown){
       p.Acc -= p.Speed
   	}
@@ -47,5 +47,4 @@ func (p *Player) MovePlayer(){
       p.Acc += 1
     }
   }
-  fmt.Printf("%d\n", p.Acc)
 }
