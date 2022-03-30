@@ -1,6 +1,7 @@
 package player
 
 import (
+  "fmt"
   "math"
   "github.com/hajimehoshi/ebiten"
 )
@@ -11,22 +12,40 @@ type Player struct {
 	Speed 			float64
   Rot         float64
   RotSpeed    float64
+  Acc         float64
+  MaxSpeed    float64
 }
 
 // Keyboard events and movements
-func (player *Player) MovePlayer(){
-	if ebiten.IsKeyPressed(ebiten.KeyUp){
-		player.Ypos -= math.Cos(player.Rot*math.Pi/180) * player.Speed
-    player.Xpos += math.Sin(player.Rot*math.Pi/180) * player.Speed
+func (p *Player) MovePlayer(){
+  if p.Acc <= p.MaxSpeed{
+    if ebiten.IsKeyPressed(ebiten.KeyUp){
+      p.Acc += p.Speed
+    }
   }
-	if ebiten.IsKeyPressed(ebiten.KeyDown){
-    player.Ypos += math.Cos(player.Rot*math.Pi/180) * player.Speed
-    player.Xpos -= math.Sin(player.Rot*math.Pi/180) * player.Speed
-	}
+  if p.Acc >= p.MaxSpeed{
+  	if ebiten.IsKeyPressed(ebiten.KeyDown){
+      p.Acc -= p.Speed
+  	}
+  }
 	if ebiten.IsKeyPressed(ebiten.KeyLeft){
-		player.Rot -= player.RotSpeed
+		p.Rot -= p.RotSpeed * p.Acc
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyRight){
-    player.Rot += player.RotSpeed
+    p.Rot += p.RotSpeed * p.Acc
 	}
+
+  if p.Acc != 0{
+    // if p.Acc <= p.MaxSpeed || p.Acc >= -p.MaxSpeed{
+    p.Ypos -= math.Cos(p.Rot*math.Pi/180) * p.Acc
+    p.Xpos += math.Sin(p.Rot*math.Pi/180) * p.Acc
+
+    if p.Acc > 0 {
+      p.Acc -= 1
+    }
+    if p.Acc < 0 {
+      p.Acc += 1
+    }
+  }
+  fmt.Printf("%d\n", p.Acc)
 }

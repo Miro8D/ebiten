@@ -35,7 +35,7 @@ func init() {
 	checkForErr()
 	spaceShip, _, err = ebitenutil.NewImageFromFile("assets/spaceShip.png", ebiten.FilterDefault)
 	checkForErr()
-	playerOne = player.Player{spaceShip, screenWidth/2.0, screenHeight/2.0, 4, 0, 2.5}
+	playerOne = player.Player{Image:spaceShip, Xpos:screenWidth/2.0, Ypos:screenHeight/2.0, Speed:2, Rot:0, RotSpeed:0.5, Acc:0, MaxSpeed:8}
 }
 
 // Update
